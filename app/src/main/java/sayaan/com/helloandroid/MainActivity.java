@@ -3,6 +3,7 @@ package sayaan.com.helloandroid;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,7 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.leanplum.Leanplum;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends FragmentActivity {
+    final long startTime = System.currentTimeMillis();
 
     private TextView mTextMessage;
 
@@ -41,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(BuildConfig.TEST_START_IN_ACTIVITY){
+
+        }
+
+
         setContentView(R.layout.activity_main);
 
         setContentView(R.layout.activity_main);

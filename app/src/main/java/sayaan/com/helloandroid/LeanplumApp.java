@@ -4,12 +4,15 @@ package sayaan.com.helloandroid;
  * Created by sayaan on 5/16/17.
  */
 
+import android.util.Log;
+
 import com.leanplum.Leanplum;
 import com.leanplum.LeanplumApplication;
 import com.leanplum.LeanplumActivityHelper;
 import com.leanplum.LeanplumDeviceIdMode;
 import com.leanplum.LeanplumPushService;
 import com.leanplum.Var;
+import com.leanplum.annotations.Variable;
 import com.leanplum.callbacks.StartCallback;
 import com.leanplum.annotations.Parser;
 
@@ -62,6 +65,25 @@ public class LeanplumApp extends LeanplumApplication {
 
         long start = System.nanoTime();
         LeanplumActivityHelper.deferMessagesForActivities(sayaan.com.helloandroid.SplashActivity);
+        Leanplum.start(this, "HomeMade", attributes, new StartCallback() {
+            @Override
+            public void onResponse(boolean success) {
+                Log.i("Sayaan App", "Start response successful", + success);
+                Log.i("Sayaam App", "Variants at start response: " + Leanplum.variants());
+                Log.i("Sayaan App", "Messages at start response: " + Leanplum.messageMetadata());
+            }
+        });
+
+        long stop = System.nanoTime();
+        Log.i("Leanplum Test", "Leanplum.start took " + ((stop - start) / 1000000.0) + " ms");
+
+        Log.i("Leanplum Test", "Variants after start: " + Leanplum.variants());
+
+    }
+
+    static class LeanplumVars{
+        @Variable
+        public static String test1 = "Homer Simposon";
 
     }
 

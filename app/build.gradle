@@ -13,14 +13,44 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
+        debug{
+            testCoverageEnabled = true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    return void;
 }
 
 dependencies {
+
+    // Leanplum SDK.
+    //noinspection GradleDynamicVersion
+    debugCompile 'com.leanplum:Leanplum:2.2.2'
+    //noinspection GradleDynamicVersion
+    releaseCompile 'com.leanplum:Leanplum:2.2.2'
+
+
+    // Leanplum UI Editor SDK
+    //noinspection GradleDynamicVersion
+    debugCompile 'com.leanplum:UIEditor:2.2.2'
+    //noinspection GradleDynamicVersion
+    releaseCompile 'com.leanplum:UIEditor:2.2.2'
+
+    // Optional dependencies for Leanplum SDK.
+    // Comment this line for FCM
+    compile 'com.google.android.gms:play-services-gcm:10.0.1'
+    // Uncomment for FCM
+    // compile "com.google.firebase:firebase-messaging:10.0.1"
+    compile 'com.google.android.gms:play-services-location:10.0.1'
+    //noinspection GradleCompatible
+    compile 'com.android.support:recyclerview-v7:25.2.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+
+
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
