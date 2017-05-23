@@ -47,10 +47,6 @@ public class LeanplumApp extends LeanplumApplication {
         Leanplum.setSocketConnectionSettings(SOCKET_HOST_NAME, SOCKET_PORT);
         Leanplum.enableVerboseLoggingInDevelopmentMode();
 
-        if(BuildConfig.USE_FIREBASE){
-            LeanplumPushService.enableFirebase();
-        }
-
         List<String> resourceList = Arrays.asList( ".*main.*.xml.*", ".*ic_launcher.png", ".*dialog.*.xml", ".*jinja.*");
         Leanplum.setDeviceIdMode(DEVICE_ID_MODE);
         Parser.parseVariablesForClasses(LeanplumVars.class);
@@ -64,11 +60,10 @@ public class LeanplumApp extends LeanplumApplication {
         //MessageTemplates.register(getApplicationContext());
 
         long start = System.nanoTime();
-        LeanplumActivityHelper.deferMessagesForActivities(sayaan.com.helloandroid.SplashActivity);
         Leanplum.start(this, "HomeMade", attributes, new StartCallback() {
             @Override
             public void onResponse(boolean success) {
-                Log.i("Sayaan App", "Start response successful", + success);
+                Log.i("Sayaan App", "Start response successful: " + success);
                 Log.i("Sayaam App", "Variants at start response: " + Leanplum.variants());
                 Log.i("Sayaan App", "Messages at start response: " + Leanplum.messageMetadata());
             }
