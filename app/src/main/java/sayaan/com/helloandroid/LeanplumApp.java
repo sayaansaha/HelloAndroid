@@ -8,9 +8,17 @@ import com.leanplum.Leanplum;
 import com.leanplum.LeanplumApplication;
 import com.leanplum.LeanplumActivityHelper;
 import com.leanplum.LeanplumDeviceIdMode;
+import com.leanplum.LeanplumPushService;
 import com.leanplum.Var;
 import com.leanplum.callbacks.StartCallback;
 import com.leanplum.annotations.Parser;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 
 public class LeanplumApp extends LeanplumApplication {
@@ -33,6 +41,28 @@ public class LeanplumApp extends LeanplumApplication {
             Leanplum.setAppIdForProductionMode(APP_ID,PRODUCTION_KEY);
         }
         Leanplum.setApiConnectionSettings(API_HOST_NAME, "api", API_SSL);
+        Leanplum.setSocketConnectionSettings(SOCKET_HOST_NAME, SOCKET_PORT);
+        Leanplum.enableVerboseLoggingInDevelopmentMode();
+
+        if(BuildConfig.USE_FIREBASE){
+            LeanplumPushService.enableFirebase();
+        }
+
+        List<String> resourceList = Arrays.asList( ".*main.*.xml.*", ".*ic_launcher.png", ".*dialog.*.xml", ".*jinja.*");
+        Leanplum.setDeviceIdMode(DEVICE_ID_MODE);
+        Parser.parseVariablesForClasses(LeanplumVars.class);
+
+        LeanplumPushService.setGcmSenderIds(LeanplumPushService.LEANPLUM_SENDER_ID);
+        //LeanplumPushService.unregister();
+
+        Map<String,Object> attributes = new HashMap<String, Object>();
+        attributes.put("email","sayaan@leanplum.com");
+
+        //MessageTemplates.register(getApplicationContext());
+
+        long start = System.nanoTime();
+        LeanplumActivityHelper.deferMessagesForActivities(sayaan.com.helloandroid.SplashActivity);
+
     }
 
 
